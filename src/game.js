@@ -5,7 +5,7 @@ async function handleUsername(bot, chatId, userId, username) {
     [
       {
         text: 'Play',
-        web_app: { url: 'https://tma-x-atoms-test.vercel.app/' },
+        web_app: { url: 'https://tma-nomad.vercel.app/' },
       },
     ],
     // [{ text: 'Go to Go! AI-RPG', url: 'https://ton.app/social/go!-app?id=1349' }],
@@ -19,11 +19,10 @@ async function handleUsername(bot, chatId, userId, username) {
   const playGuitarEmoji = '\uD83C\uDFB8'; // 🎸
   const gemEmoji = '\uD83D\uDC8E'; // 💎
   const giftEmoji = '\uD83C\uDF81'; // 🎁
-  const welcomeText = `Welcome to our X-ATOMS game! ${username}\n
+  const welcomeText = `Welcome to our Nomad Mini App! ${username}\n
 What can this bot do?\n
 ${eyesEmoji} Click Start below\n
 ${playGuitarEmoji} Play the guitar! token to collect rewards\n
-${gemEmoji} Earn up to 50 XATOMs daily by tapping\n
 ${giftEmoji} Complete social tasks and invite friends for more rewards\n
 XATOM is your gateway to rewards and adventures! ${rocketEmoji}`;
 
