@@ -4,7 +4,7 @@ async function handleUsername(bot, chatId, userId, username) {
   const buttons = [
     [
       {
-        text: 'Play',
+        text: 'Start',
         web_app: { url: 'https://tma-nomad.vercel.app/' },
       },
     ],
@@ -24,7 +24,7 @@ What can this bot do?\n
 ${eyesEmoji} Click Start below\n
 ${playGuitarEmoji} Play the guitar! token to collect rewards\n
 ${giftEmoji} Complete social tasks and invite friends for more rewards\n
-XATOM is your gateway to rewards and adventures! ${rocketEmoji}`;
+Nomad is your gateway to rewards and adventures! ${rocketEmoji}`;
 
   // // First, send the welcome image
   const localImagePath = 'https://res.cloudinary.com/dz6r3o4w0/image/upload/v1718722487/guitar_hfpzls.jpg'; // Replace with the local path to your image
