@@ -1,25 +1,30 @@
 const TelegramBot = require('node-telegram-bot-api');
-const { TOKEN, BACKEND_URL } = require('./config.js');
+const axios = require('axios');
+const express = require('express');
+
+// Use environment variables for sensitive information
+const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const BACKEND_URL = process.env.BACKEND_URL;
+
 const { handleUsername } = require('./game.js');
 
-const axios = require('axios');
+// Create an Express app
+const app = express();
 
+// Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-const http = require('http');
-
-
-const port = process.env.PORT || 5000;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+// Webhook route
+app.post(`/bot${TOKEN}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
 });
 
-server.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+// Health check route
+app.get('/', (req, res) => {
+  res.send('Bot is running!');
 });
+
 bot.on('message', async msg => {
   try {
     const chatId = msg.chat.id;
@@ -27,7 +32,7 @@ bot.on('message', async msg => {
     const username = msg.from.username;
 
     const { text } = msg;
-    const COMMANDS = text.toUpperCase();
+    const COMMANDS = text ? text.toUpperCase() : '';
 
     if (!text) return;
 
@@ -44,38 +49,43 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
   const first_name = msg.from.first_name || 'Anonymous';
   const last_name = msg.from.last_name || '';
   const referralCode = match[1]; // Extracted from the start parameter
-  axios
-    .post(`${BACKEND_URL}/api/v1/users/addReferral`, {
+  
+  try {
+    const res = await axios.post(`${BACKEND_URL}/api/v1/users/addReferral`, {
       user: referralCode,
       friend_id: userId,
       friend_username: username,
-    })
-    .then(res => {
-      console.log('--//---OK!!!----//---', res);
-      console.log('--//---referrerUsername----//---', referralCode);
-      console.log('--//---USER_NAME----//---', username, userId);
-    })
-    .catch(error => {
-      console.error(error);
     });
+    console.log('--//---OK!!!----//---', res.data);
+    console.log('--//---referrerUsername----//---', referralCode);
+    console.log('--//---USER_NAME----//---', username, userId);
+  } catch (error) {
+    console.error(error);
+  }
 });
+
 bot.onText(/\/start (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const username = msg.from.username;
   const userId = msg.from.id;
   const referralCode = match[1]; // Extracted from the start parameter
   console.log('--//---USER_NAME----//---', username, userId, referralCode);
-  axios
-    .post(`${BACKEND_URL}/friend/addreferral`, {
+  
+  try {
+    const res = await axios.post(`${BACKEND_URL}/friend/addreferral`, {
       username: username,
       userId: userId,
-    })
-    .then(res => {
-      console.log('--//---OK!!!----//---', res);
-      console.log('--//---referrerUsername----//---', referralCode);
-      console.log('--//---USER_NAME----//---', username, userId);
-    })
-    .catch(error => {
-      console.error(error);
     });
+    console.log('--//---OK!!!----//---', res.data);
+    console.log('--//---referrerUsername----//---', referralCode);
+    console.log('--//---USER_NAME----//---', username, userId);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
