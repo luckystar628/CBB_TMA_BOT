@@ -1,11 +1,11 @@
-const fs = require('fs'); // Import the File System module
+const fs = require('fs'); // Importer le module File System
 
 async function handleUsername(bot, chatId, userId, username) {
   const buttons = [
     [
       {
         text: 'Start',
-        web_app: { url: 'https://tma-nomad.vercel.app/' },
+        web_app: { url: 'https://frontend-mini-app-nomad-gdoj.vercel.app/' },
       },
     ],
     // [{ text: 'Go to Go! AI-RPG', url: 'https://ton.app/social/go!-app?id=1349' }],
@@ -14,20 +14,22 @@ async function handleUsername(bot, chatId, userId, username) {
     // [{ text: 'Discord', url: 'https://discord.com/gorwachain' }],
     // [{ text: 'Website', url: 'https://www.goplatform.io/' }],
   ];
-  const rocketEmoji = '\uD83D\uDE80'; // 🚀
-  const eyesEmoji = '\uD83D\uDC40'; // 👀
-  const playGuitarEmoji = '\uD83C\uDFB8'; // 🎸
-  const gemEmoji = '\uD83D\uDC8E'; // 💎
-  const giftEmoji = '\uD83C\uDF81'; // 🎁
-  const welcomeText = `Welcome to our Nomad Mini App! ${username}\n
-What can this bot do?\n
-${eyesEmoji} Click Start below\n
-${playGuitarEmoji} Play the guitar! token to collect rewards\n
-${giftEmoji} Complete social tasks and invite friends for more rewards\n
-Nomad is your gateway to rewards and adventures! ${rocketEmoji}`;
+  const rocketEmoji = '\u2708\uFE0F'; // ✈️
+  const earthEmoji = '\uD83C\uDF0D'; // 🌍
+  const cameraEmoji = '\uD83D\uDCF7'; // 📷
+  const mobileEmoji = '\uD83D\uDCF1'; // 📲
+  const trophyEmoji = '\uD83C\uDFC6'; // 🏆
 
-  // // First, send the welcome image
-  const localImagePath = 'https://res.cloudinary.com/dz6r3o4w0/image/upload/v1718722487/guitar_hfpzls.jpg'; // Replace with the local path to your image
+  const welcomeText = `Welcome to the Nomad Mini App, ${username}!\n
+  What can this bot do?\n
+  ${earthEmoji} Click Start below\n
+  ${cameraEmoji} Answer daily questions to earn rewards and help us improve our travel app\n
+  ${mobileEmoji} Invite friends and complete social tasks for extra rewards\n
+  ${trophyEmoji} Compete on the leaderboard and win a share of our $20,000 airdrop\n
+  Nomad is your gateway to freedom and adventure! ${rocketEmoji}`;
+
+  // Envoyer d'abord l'image de bienvenue
+  const localImagePath = 'https://res.cloudinary.com/dq6c6ttrz/image/upload/v1720511232/nomad-miniapp-image_af4n4g.jpg'; // Remplacez par le chemin de votre image
   // const imageData = fs.readFileSync(localImagePath);
   const originalFilename = localImagePath.split('/').pop();
 
@@ -44,7 +46,7 @@ Nomad is your gateway to rewards and adventures! ${rocketEmoji}`;
     }
   );
 
-  // // Then, send the welcome text with buttons
+  // Ensuite, envoyer le texte de bienvenue avec les boutons
   // await bot.sendMessage(chatId, welcomeText, {
   //   parse_mode: 'HTML',
   //   reply_markup: {
@@ -52,8 +54,6 @@ Nomad is your gateway to rewards and adventures! ${rocketEmoji}`;
   //   }
   // });
 }
-
-
 
 module.exports = {
   handleUsername,

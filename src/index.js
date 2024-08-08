@@ -75,6 +75,7 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
     const res = await axios.post(`${BACKEND_URL}/friend/addreferral`, {
       username: username,
       userId: userId,
+      referralCode: referralCode,
     });
     console.log('--//---OK!!!----//---', res.data);
     console.log('--//---referrerUsername----//---', referralCode);
