@@ -5,7 +5,7 @@ async function handleUsername(bot, chatId, userId, username) {
     [
       {
         text: 'Start',
-        web_app: { url: 'https://frontend-mini-app-nomad-gdoj.vercel.app/' },
+        web_app: { url: 'https://cbb-tma-front-end.vercel.app' },
       },
     ],
     // [{ text: 'Go to Go! AI-RPG', url: 'https://ton.app/social/go!-app?id=1349' }],
